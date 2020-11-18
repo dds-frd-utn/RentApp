@@ -1,0 +1,16 @@
+utn\frd\tp1vergara\sessions\UsuariosFacade.class
+utn\frd\tp1vergara\entities\Vehiculos.class
+utn\frd\tp1vergara\sessions\AbstractFacade.class
+utn\frd\tp1vergara\entities\Concesionarias.class
+utn\frd\tp1vergara\entities\Usuarios.class
+utn\frd\tp1vergara\resources\JavaEE8Resource.class
+utn\frd\tp1vergara\sessions\ConcesionariasFacade.class
+utn\frd\tp1vergara\sessions\AlquileresFacade.class
+utn\frd\tp1vergara\rest\services\ApplicationConfig.class
+utn\frd\tp1vergara\rest\services\NewCrossOriginResourceSharingFilter.class
+utn\frd\tp1vergara\sessions\VehiculosFacade.class
+utn\frd\tp1vergara\rest\services\UsuariosRest.class
+utn\frd\tp1vergara\rest\services\VehiculosRest.class
+utn\frd\tp1vergara\rest\services\ConcesionariasRest.class
+utn\frd\tp1vergara\entities\Alquileres.class
+utn\frd\tp1vergara\entities\AbstractFacade.class
