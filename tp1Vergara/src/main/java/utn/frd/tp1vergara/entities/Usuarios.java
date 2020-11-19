@@ -25,12 +25,11 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u"),
     @NamedQuery(name = "Usuarios.findByDni", query = "SELECT u FROM Usuarios u WHERE u.dni = :dni"),
-    @NamedQuery(name = "Usuarios.findByUsuario", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario"),
     @NamedQuery(name = "Usuarios.findByNombre", query = "SELECT u FROM Usuarios u WHERE u.nombre = :nombre"),
     @NamedQuery(name = "Usuarios.findByLicencia", query = "SELECT u FROM Usuarios u WHERE u.licencia = :licencia"),
-    @NamedQuery(name = "Usuarios.findByKilometraje", query = "SELECT u FROM Usuarios u WHERE u.kilometraje = :kilometraje"),
     @NamedQuery(name = "Usuarios.findByTelefono", query = "SELECT u FROM Usuarios u WHERE u.telefono = :telefono"),
-    @NamedQuery(name = "Usuarios.findByDireccion", query = "SELECT u FROM Usuarios u WHERE u.direccion = :direccion")})
+    @NamedQuery(name = "Usuarios.findByDireccion", query = "SELECT u FROM Usuarios u WHERE u.direccion = :direccion"),
+    @NamedQuery(name = "Usuarios.findByEmail", query = "SELECT u FROM Usuarios u WHERE u.email = :email")})
 public class Usuarios implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,21 +41,12 @@ public class Usuarios implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "usuario")
-    private String usuario;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
     @Column(name = "nombre")
     private String nombre;
     @Basic(optional = false)
     @NotNull
     @Column(name = "licencia")
     private boolean licencia;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "kilometraje")
-    private int kilometraje;
     @Basic(optional = false)
     @NotNull
     @Column(name = "telefono")
@@ -66,6 +56,12 @@ public class Usuarios implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "direccion")
     private String direccion;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "email")
+    private String email;
 
     public Usuarios() {
     }
@@ -74,14 +70,13 @@ public class Usuarios implements Serializable {
         this.dni = dni;
     }
 
-    public Usuarios(Integer dni, String usuario, String nombre, boolean licencia, int kilometraje, int telefono, String direccion) {
+    public Usuarios(Integer dni, String nombre, boolean licencia, int telefono, String direccion, String email) {
         this.dni = dni;
-        this.usuario = usuario;
         this.nombre = nombre;
         this.licencia = licencia;
-        this.kilometraje = kilometraje;
         this.telefono = telefono;
         this.direccion = direccion;
+        this.email = email;
     }
 
     public Integer getDni() {
@@ -90,14 +85,6 @@ public class Usuarios implements Serializable {
 
     public void setDni(Integer dni) {
         this.dni = dni;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
     }
 
     public String getNombre() {
@@ -116,14 +103,6 @@ public class Usuarios implements Serializable {
         this.licencia = licencia;
     }
 
-    public int getKilometraje() {
-        return kilometraje;
-    }
-
-    public void setKilometraje(int kilometraje) {
-        this.kilometraje = kilometraje;
-    }
-
     public int getTelefono() {
         return telefono;
     }
@@ -138,6 +117,14 @@ public class Usuarios implements Serializable {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

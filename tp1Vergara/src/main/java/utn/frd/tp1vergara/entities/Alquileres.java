@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -29,11 +30,12 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name = "Alquileres.findAll", query = "SELECT a FROM Alquileres a"),
     @NamedQuery(name = "Alquileres.findByIdOrden", query = "SELECT a FROM Alquileres a WHERE a.idOrden = :idOrden"),
-    @NamedQuery(name = "Alquileres.findByIdCliente", query = "SELECT a FROM Alquileres a WHERE a.idCliente = :idCliente"),
-    @NamedQuery(name = "Alquileres.findByIdVehiculo", query = "SELECT a FROM Alquileres a WHERE a.idVehiculo = :idVehiculo"),
-    @NamedQuery(name = "Alquileres.findByIdConcesionaria", query = "SELECT a FROM Alquileres a WHERE a.idConcesionaria = :idConcesionaria"),
+    @NamedQuery(name = "Alquileres.findByDniCliente", query = "SELECT a FROM Alquileres a WHERE a.dniCliente = :dniCliente"),
+    @NamedQuery(name = "Alquileres.findByPatente", query = "SELECT a FROM Alquileres a WHERE a.patente = :patente"),
+    @NamedQuery(name = "Alquileres.findByIdConsecionaria", query = "SELECT a FROM Alquileres a WHERE a.idConsecionaria = :idConsecionaria"),
     @NamedQuery(name = "Alquileres.findByFechaAlquiler", query = "SELECT a FROM Alquileres a WHERE a.fechaAlquiler = :fechaAlquiler"),
-    @NamedQuery(name = "Alquileres.findByFechaDevolucion", query = "SELECT a FROM Alquileres a WHERE a.fechaDevolucion = :fechaDevolucion")})
+    @NamedQuery(name = "Alquileres.findByFechaDevolucion", query = "SELECT a FROM Alquileres a WHERE a.fechaDevolucion = :fechaDevolucion"),
+    @NamedQuery(name = "Alquileres.findByKilometrosRecorridos", query = "SELECT a FROM Alquileres a WHERE a.kilometrosRecorridos = :kilometrosRecorridos")})
 public class Alquileres implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,24 +46,31 @@ public class Alquileres implements Serializable {
     private Integer idOrden;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_cliente")
-    private int idCliente;
+    @Column(name = "dni_cliente")
+    private int dniCliente;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_vehiculo")
-    private int idVehiculo;
+    @Size(min = 1, max = 255)
+    @Column(name = "patente")
+    private String patente;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_concesionaria")
-    private int idConcesionaria;
+    @Column(name = "id_consecionaria")
+    private int idConsecionaria;
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_alquiler")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date fechaAlquiler;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "fecha_devolucion")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date fechaDevolucion;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "kilometros_recorridos")
+    private int kilometrosRecorridos;
 
     public Alquileres() {
     }
@@ -70,12 +79,14 @@ public class Alquileres implements Serializable {
         this.idOrden = idOrden;
     }
 
-    public Alquileres(Integer idOrden, int idCliente, int idVehiculo, int idConcesionaria, Date fechaAlquiler) {
+    public Alquileres(Integer idOrden, int dniCliente, String patente, int idConsecionaria, Date fechaAlquiler, Date fechaDevolucion, int kilometrosRecorridos) {
         this.idOrden = idOrden;
-        this.idCliente = idCliente;
-        this.idVehiculo = idVehiculo;
-        this.idConcesionaria = idConcesionaria;
+        this.dniCliente = dniCliente;
+        this.patente = patente;
+        this.idConsecionaria = idConsecionaria;
         this.fechaAlquiler = fechaAlquiler;
+        this.fechaDevolucion = fechaDevolucion;
+        this.kilometrosRecorridos = kilometrosRecorridos;
     }
 
     public Integer getIdOrden() {
@@ -86,28 +97,28 @@ public class Alquileres implements Serializable {
         this.idOrden = idOrden;
     }
 
-    public int getIdCliente() {
-        return idCliente;
+    public int getDniCliente() {
+        return dniCliente;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setDniCliente(int dniCliente) {
+        this.dniCliente = dniCliente;
     }
 
-    public int getIdVehiculo() {
-        return idVehiculo;
+    public String getPatente() {
+        return patente;
     }
 
-    public void setIdVehiculo(int idVehiculo) {
-        this.idVehiculo = idVehiculo;
+    public void setPatente(String patente) {
+        this.patente = patente;
     }
 
-    public int getIdConcesionaria() {
-        return idConcesionaria;
+    public int getIdConsecionaria() {
+        return idConsecionaria;
     }
 
-    public void setIdConcesionaria(int idConcesionaria) {
-        this.idConcesionaria = idConcesionaria;
+    public void setIdConsecionaria(int idConsecionaria) {
+        this.idConsecionaria = idConsecionaria;
     }
 
     public Date getFechaAlquiler() {
@@ -124,6 +135,14 @@ public class Alquileres implements Serializable {
 
     public void setFechaDevolucion(Date fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
+    }
+
+    public int getKilometrosRecorridos() {
+        return kilometrosRecorridos;
+    }
+
+    public void setKilometrosRecorridos(int kilometrosRecorridos) {
+        this.kilometrosRecorridos = kilometrosRecorridos;
     }
 
     @Override
